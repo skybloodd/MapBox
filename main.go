@@ -11,7 +11,16 @@ import (
 	"strings"
 )
 
-const MAPBOX_ACCESS_TOKEN = "TOKEN"
+var MAPBOX_ACCESS_TOKEN = loadToken()
+
+func loadToken() string {
+	data, _ := os.ReadFile("config.json")
+
+	var config map[string]string
+	json.Unmarshal(data, &config)
+
+	return config["mapbox_access_token"]
+}
 
 type LocationInfo struct {
 	Latitude  float64
